@@ -6,10 +6,12 @@
     ./swap.nix
   ];
 
-  nix.settings.experimental-features = [
-    "nix-command"
-    "flakes"
-  ];
+  nix.settings = {
+    experimental-features = [
+      "nix-command"
+      "flakes"
+    ];
+  };
 
   #  Reset root subvolume on boot
   boot.initrd.postResumeCommands = lib.mkAfter ''
@@ -60,17 +62,17 @@
     helix
     wget
     git
-    gh
-    floorp-bin
-    kitty
     nixfmt
     lazygit
+    floorp-bin
   ];
+  programs.hyprland.enable = true;
 
-  programs.hyprland = {
-    enable = true;
-    xwayland.enable = true;
-  };
+  services.spice-vdagentd.enable = true;
+  services.qemuGuest.enable = true;
+
+  services.xserver.xkb.layout = "de";
+  i18n.defaultLocale = "de_AT.UTF-8";
 
   time.timeZone = "Europe/Vienna";
 
