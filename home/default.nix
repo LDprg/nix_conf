@@ -7,6 +7,11 @@
       userName = "LDprg";
       userEmail = "lukas_4dr@gmx.at";
     };
+
+    gh = {
+      enable = true;
+      gitCredentialHelper.enable = true;
+    };
     kitty.enable = true;
 
     zoxide = {
