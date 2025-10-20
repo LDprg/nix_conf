@@ -1,8 +1,15 @@
-{lib, ...}: {
-    imports = [
+{ lib, pkgs, ... }:
+{
+  imports = [
     ./hardware-configuration.nix
-        ./disk_config.nix
-    ]
+    ./disk_config.nix
+    ./swap.nix
+  ];
+
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
+  ];
 
   #  Reset root subvolume on boot
   boot.initrd.postResumeCommands = lib.mkAfter ''
@@ -43,33 +50,42 @@
     ];
   };
 
-
   custom = {
     zram.enable = true;
-};
-    boot.loader.systemd-boot.enable = true;
-boot.loader.systemd-boot.enable = true;
+  };
+  boot.loader.systemd-boot.enable = true;
 
   environment.systemPackages = with pkgs; [
     vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-    #   wget
+    wget
     git
+    gh
+    floorp-bin
+    kitty
+    nixfmt
+    lazygit
   ];
+
+  programs.hyprland = {
+    enable = true;
+    xwayland.enable = true;
+  };
 
   time.timeZone = "Europe/Vienna";
 
-users.users.ldprg = {
+  users.users.ldprg = {
     isNormalUser = true;
-    extraGroups = [ "wheel" "networkmanager" ]; # Add "wheel" for sudo access
-    initialHashedPassword = "ldprg"; # <-- This is where it goes!
+    extraGroups = [
+      "wheel"
+      "networkmanager"
+    ]; # Add "wheel" for sudo access
+    initialHashedPassword = "$y$j9T$7E7CHLLkmzKtzfxsAtd3M/$Iaa10xNFwBbTwNN9H/zwYfD3qN5zAE8Kle0vNtOe6mD"; # <-- This is where it goes!
     # home = "/home/nixos"; # Optional: Disko typically handles home subvolumes
   };
-  
-  
+
   console.keyMap = "de";
 
   nixpkgs.config.allowUnfree = true;
 
-      system.stateVersion = "25.05";
+  system.stateVersion = "25.05";
 }
-

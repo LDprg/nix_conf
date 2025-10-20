@@ -31,36 +31,56 @@
                   # Subvolume name is different from mountpoint
                   "/root" = {
                     mountpoint = "/";
-                    mountOptions = [ "subvol=root" "compress=zstd" "noatime" ];
+                    mountOptions = [
+                      "subvol=root"
+                      "compress=zstd"
+                      "noatime"
+                    ];
                   };
                   # Subvolume name is the same as the mountpoint
                   "/home" = {
                     mountpoint = "/home";
-                    mountOptions = [ "subvol=home" "compress=zstd" "noatime" ];
+                    mountOptions = [
+                      "subvol=home"
+                      "compress=zstd"
+                      "noatime"
+                    ];
                   };
                   # Sub(sub)volume doesn't need a mountpoint as its parent is mounted
                   # "/home/ldprg" = { };
                   # Parent is not mounted so the mountpoint must be set
                   "/nix" = {
                     mountOptions = [
-                     "subvol=nix"
+                      "subvol=nix"
                       "compress=zstd"
                       "noatime"
                     ];
                     mountpoint = "/nix";
                   };
-                   "/nix/persist" = {
+                  "/nix/persist" = {
                     mountpoint = "/nix/persist";
-                    mountOptions = ["subvol=persist" "compress=zstd" "noatime"];
+                    mountOptions = [
+                      "subvol=persist"
+                      "compress=zstd"
+                      "noatime"
+                    ];
                   };
                   "/log" = {
                     mountpoint = "/var/log";
-                    mountOptions = ["subvol=log" "compress=zstd" "noatime"];
+                    mountOptions = [
+                      "subvol=log"
+                      "compress=zstd"
+                      "noatime"
+                    ];
                   };
                   "/lib" = {
                     mountpoint = "/var/lib";
-                    mountOptions = ["subvol=lib" "compress=zstd" "noatime"];
-                  }; 
+                    mountOptions = [
+                      "subvol=lib"
+                      "compress=zstd"
+                      "noatime"
+                    ];
+                  };
                 };
               };
             };

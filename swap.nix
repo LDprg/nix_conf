@@ -2,9 +2,11 @@
   lib,
   config,
   ...
-}: let
+}:
+let
   cfg = config.custom.zram;
-in {
+in
+{
   options.custom.zram = {
     enable = lib.mkEnableOption "Enable zram";
   };
@@ -14,8 +16,8 @@ in {
       enable = true;
       # one of "lzo", "lz4", "zstd"
       algorithm = "zstd";
-       priority = 5;
-       memoryPercent = 50;
+      priority = 5;
+      memoryPercent = 50;
     };
   };
 }
