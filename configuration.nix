@@ -1,4 +1,9 @@
 {lib, ...}: {
+    imports = [
+    ./hardware-configuration.nix
+        ./disk_config.nix
+    ]
+
   #  Reset root subvolume on boot
   boot.initrd.postResumeCommands = lib.mkAfter ''
     mkdir /btrfs_tmp
@@ -42,6 +47,29 @@
   custom = {
     zram.enable = true;
 };
+    boot.loader.systemd-boot.enable = true;
+boot.loader.systemd-boot.enable = true;
 
+  environment.systemPackages = with pkgs; [
+    vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
+    #   wget
+    git
+  ];
+
+  time.timeZone = "Europe/Vienna";
+
+users.users.ldprg = {
+    isNormalUser = true;
+    extraGroups = [ "wheel" "networkmanager" ]; # Add "wheel" for sudo access
+    initialHashedPassword = "ldprg"; # <-- This is where it goes!
+    # home = "/home/nixos"; # Optional: Disko typically handles home subvolumes
+  };
+  
+  
+  console.keyMap = "de";
+
+  nixpkgs.config.allowUnfree = true;
+
+      system.stateVersion = "25.05";
 }
 
