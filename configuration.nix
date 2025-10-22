@@ -11,6 +11,10 @@
       "nix-command"
       "flakes"
     ];
+    substituters = [ "https://hyprland.cachix.org" ];
+    trusted-substituters = [ "https://hyprland.cachix.org" ];
+    trusted-public-keys = [ "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc=" ];
+
   };
 
   #  Reset root subvolume on boot
@@ -67,6 +71,7 @@
     floorp-bin
   ];
   programs.hyprland.enable = true;
+  programs.fish.enable = true;
 
   services.spice-vdagentd.enable = true;
   services.qemuGuest.enable = true;
@@ -83,6 +88,7 @@
       "networkmanager"
     ]; # Add "wheel" for sudo access
     initialHashedPassword = "$y$j9T$7E7CHLLkmzKtzfxsAtd3M/$Iaa10xNFwBbTwNN9H/zwYfD3qN5zAE8Kle0vNtOe6mD"; # <-- This is where it goes!
+    shell = pkgs.fish;
     # home = "/home/nixos"; # Optional: Disko typically handles home subvolumes
   };
 
